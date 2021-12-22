@@ -1,4 +1,3 @@
-FROM mysql
-ENV MYSQL_ROOT_PASSWORD password123
-EXPOSE 3306
-RUN mysql -uroot -p${MYSQL_ROOT_PASSWORD} && create database dbproject
+FROM openjdk:11
+COPY target/projet-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "-Djava.net.preferIPv4Stack=true","app.jar"]

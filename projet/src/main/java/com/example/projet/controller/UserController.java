@@ -6,13 +6,12 @@ import com.example.projet.entities.User;
 import com.example.projet.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(path="/user")
 public class UserController {
    private final UserService userService;

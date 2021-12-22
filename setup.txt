@@ -1,9 +1,17 @@
-bcdedit /set hypervisorlaunchtype off  
+ 
+
+Build jar
+> Build Jar file
+$ mvnw.cmd clean package -DskipTests
+
+> Dockerize API
+$ docker-compose.exe up -d
+
 
 Mysql Docker :
 
 > Download mysql and run it
-$ docker run --name db-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password123 -d mysql
+$ docker run --name db-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password123 -e MYSQL_DATABASE=dbproject -d mysql
 
 > List container running
 $ docker ps
@@ -17,11 +25,11 @@ $ docker start|stop container_id
 > Bash container
 $ docker exec -it container_id bash
 
-> Connect mysql in container & create database
-$ mysql -uroot -p
-$ create database dbproject;
+> Connect mysql in container & show table user
+$ mysql -uroot -ppassword123
 $ use dbproject;
-$ select * from tablename;
-$ exit
+$ select * from user;
 
 
+> Docker startup problem
+$ bcdedit /set hypervisorlaunchtype off 
