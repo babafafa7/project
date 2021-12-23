@@ -2,22 +2,24 @@ package com.example.projet.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
-public class User {
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String forename;
+    private String name;
 
-    private String surname;
+    private double price;
 
-    @Column(unique = true)
-    private String mail;
+    private int quantity = 0;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Cart cart;
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Cart> carts;
 }

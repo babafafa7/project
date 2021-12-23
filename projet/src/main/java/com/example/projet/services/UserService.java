@@ -3,6 +3,7 @@ package com.example.projet.services;
 import com.example.projet.dao.UserRepository;
 import com.example.projet.dto.UserDTO;
 import com.example.projet.dto.UserUpdateDTO;
+import com.example.projet.entities.Cart;
 import com.example.projet.entities.User;
 import com.example.projet.exceptions.UserExistingException;
 import com.example.projet.exceptions.UserNotFoundException;
@@ -16,9 +17,12 @@ import java.util.Objects;
 public class UserService {
 
     UserRepository userRepository;
+    CartService cartService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       CartService cartService) {
         this.userRepository = userRepository;
+        this.cartService = cartService;
     }
 
     public List<User> getAllUsers(){
@@ -35,6 +39,7 @@ public class UserService {
         newUser.setForename(userDTO.getForename());
         newUser.setSurname(userDTO.getSurname());
         newUser.setMail(userDTO.getMail());
+        newUser.setCart(new Cart());
         return userRepository.save(newUser);
     }
 
@@ -46,9 +51,10 @@ public class UserService {
     }
 
     public String deleteUser(Long id){
-        getUserById(id);
-        userRepository.deleteById(id);
-        return String.format("User %d successfully deleted.",id);
+        User deleteUser = getUserById(id);
+        cartService.emptyingCart(deleteUser.getCart());
+        userRepository.delete(deleteUser);
+        return String.format("User %s successfully deleted.",deleteUser.getMail());
     }
 
     private void mailAlreadyExisting(String mail){
