@@ -1,0 +1,16 @@
+<tr *ngIf="user">
+  <td>{{ user.id }}</td>
+  <td>{{ user.surname }}</td>
+  <td>{{ user.forename }}</td>
+  <td>{{ user.mail }}</td>
+  <td>
+    <button (click)="onDelete(user)" class="btn btn-sm btn-danger">
+      <span class="fa fa-trash-o"></span>
+    </button>
+  </td>
+  <td>
+    <button (click)="onEdit(user)" class="btn btn-sm btn-info">
+      <span class="fa fa-edit"></span>
+    </button>
+  </td>
+</tr>

@@ -1,0 +1,51 @@
+<div class="container">
+  <ng-container *ngIf="userFormGroup">
+    <ng-container *ngIf="state as data">
+      <ng-container *ngIf="data.dataState==UsersStateEnum.LOADING">
+        Loading...
+      </ng-container>
+      <ng-container *ngIf="data.dataState==UsersStateEnum.ERROR">
+        {{state.errorMessage}}
+      </ng-container>
+      <ng-container *ngIf="data.dataState==UsersStateEnum.UPDATED">
+        <div class="alert-success container p-3 m-3">
+          <span>User Saved Successfully</span>
+          <button class="btn btn-success ml-3" (click)="okUpdated()">OK</button>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="data.dataState==UsersStateEnum.LOADED">
+        <ng-container *ngIf="formBuilt">
+          <form [formGroup]="userFormGroup" (ngSubmit)="onUpdateUser()">
+            <div class="form-group">
+              <label for="id">ID : </label>
+              <label class="ml-1">{{userFormGroup.controls.id.value}}</label>
+              <input type="hidden" formControlName="id" id="id"/>
+            </div>
+            <div class="form-group">
+              <label for="surname">Surname</label>
+              <input type="text" class="form-control" formControlName="surname" id="surname"
+                     [ngClass]="{'is-invalid':submitted && userFormGroup.controls.surname.errors}">
+              <div *ngIf="submitted && userFormGroup.controls.surname.errors" class="invalid-feedback">
+                <div *ngIf="userFormGroup.controls.surname.errors.required">Surname is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="forename">Forename</label>
+              <input type="text" class="form-control" formControlName="forename" id="forename"
+                     [ngClass]="{'is-invalid':submitted && userFormGroup.controls.forename.errors}">
+              <div *ngIf="submitted && userFormGroup.controls.forename.errors" class="invalid-feedback">
+                <div *ngIf="userFormGroup.controls.forename.errors.required">Forename is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mail">Mail :</label>
+              <label class="ml-1">{{userFormGroup.controls.mail.value}}</label>
+              <input type="hidden"  formControlName="mail" id="mail"/>
+            </div>
+            <button class="btn btn-success">Save</button>
+          </form>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

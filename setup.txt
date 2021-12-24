@@ -1,8 +1,8 @@
- 
-
-Build jar
-> Build Jar file
+> Build Jar file in projet directory
 $ mvnw.cmd clean package -DskipTests
+
+> Build angular web view in projet-web directory
+$ ng build
 
 > Dockerize API
 $ docker-compose.exe up -d

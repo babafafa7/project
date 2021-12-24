@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-
 @Service
 public class UserService {
 
@@ -50,11 +49,11 @@ public class UserService {
         return userRepository.save(updateUser);
     }
 
-    public String deleteUser(Long id){
+    public List<User> deleteUser(Long id){
         User deleteUser = getUserById(id);
         cartService.emptyingCart(deleteUser.getCart());
         userRepository.delete(deleteUser);
-        return String.format("User %s successfully deleted.",deleteUser.getMail());
+        return getAllUsers();
     }
 
     private void mailAlreadyExisting(String mail){
@@ -64,5 +63,9 @@ public class UserService {
                 throw  new UserExistingException(mail);
             }
         });
+    }
+
+    public List<User> getUsersBySearch(String search) {
+        return userRepository.findUsersByMailLike(search);
     }
 }

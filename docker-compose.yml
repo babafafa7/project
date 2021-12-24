@@ -16,13 +16,25 @@ services:
     image: projet-api
     container_name: api
     build:
-      context: .
+      context: projet
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - db
     restart: on-failure
+    networks:
+      - network
+  web:
+    image: web-api
+    container_name: web-api
+    build:
+      context: projet-web
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
     networks:
       - network
 networks:

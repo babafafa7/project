@@ -1,0 +1,16 @@
+ng new projet-web
+ng add @ng-bootstrap/ng-bootstrap
+npm install jquery --save
+
+> In angualr.json
+"scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
+
+ng generate component app/components/home
+npm install @ngrx/store --save
+npm install @ngrx/effects --save
+
+npm install --save font-awesome
+
+ng build

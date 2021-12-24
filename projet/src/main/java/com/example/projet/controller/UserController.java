@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
 @RequestMapping(path="/user")
+@CrossOrigin(origins = "http://localhost")
 public class UserController {
    private final UserService userService;
 
@@ -42,7 +44,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id){
+    public ResponseEntity<List<User>> deleteUserById(@PathVariable("id") Long id){
         return new ResponseEntity<>(userService.deleteUser(id),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<List<User>> getUsersBySearch(@PathParam("search") String search){
+        return new ResponseEntity<>(userService.getUsersBySearch(search),HttpStatus.OK);
     }
 }
