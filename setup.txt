@@ -1,3 +1,5 @@
+cd projet && mvnw.cmd clean package -DskipTests && cd ../projet-web/ && ng build && cd .. && docker-compose.exe up -d
+
 > Build Jar file in projet directory
 $ mvnw.cmd clean package -DskipTests
 

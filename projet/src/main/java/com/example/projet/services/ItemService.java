@@ -3,6 +3,7 @@ package com.example.projet.services;
 import com.example.projet.dao.ItemRepository;
 import com.example.projet.dto.ItemDTO;
 import com.example.projet.entities.Item;
+import com.example.projet.entities.User;
 import com.example.projet.exceptions.ItemNotFoundException;
 import com.example.projet.exceptions.ItemQuantityException;
 import org.springframework.stereotype.Service;
@@ -42,10 +43,10 @@ public class ItemService {
         return itemRepository.save(updateItem);
     }
 
-    public String deleteItem(Long id) {
+    public List<Item> deleteItem(Long id) {
         Item deleteItem = getItemById(id);
         itemRepository.delete(deleteItem);
-        return String.format("Item %s successfully deleted.",deleteItem.getName());
+        return getAllItems();
     }
 
     public boolean itemAvailable(Item item){
@@ -63,4 +64,9 @@ public class ItemService {
         item.setQuantity(item.getQuantity() + 1);
         itemRepository.save(item);
     }
+
+    public List<Item> getItemsBySearch(String search) {
+        return itemRepository.findItemsByNameLike(search);
+    }
+
 }

@@ -1,0 +1,54 @@
+<div class="container">
+  <ng-container *ngIf="itemFormGroup">
+    <ng-container *ngIf="state as data">
+      <ng-container *ngIf="data.dataState==ItemsStateEnum.LOADING">
+        Loading...
+      </ng-container>
+      <ng-container *ngIf="data.dataState==ItemsStateEnum.ERROR">
+        {{state.errorMessage}}
+      </ng-container>
+      <ng-container *ngIf="data.dataState==ItemsStateEnum.UPDATED">
+        <div class="alert-success container p-3 m-3">
+          <span>Item Saved Successfully</span>
+          <button class="btn btn-success ml-3" (click)="okUpdated()">OK</button>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="data.dataState==ItemsStateEnum.LOADED">
+        <ng-container *ngIf="formBuilt">
+          <form [formGroup]="itemFormGroup" (ngSubmit)="onUpdateItem()">
+            <div class="form-group">
+              <label for="id">ID : </label>
+              <label class="ml-1">{{itemFormGroup.controls.id.value}}</label>
+              <input type="hidden" formControlName="id" id="id"/>
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" formControlName="name" id="name"
+                     [ngClass]="{'is-invalid':submitted && itemFormGroup.controls.name.errors}">
+              <div *ngIf="submitted && itemFormGroup.controls.name.errors" class="invalid-feedback">
+                <div *ngIf="itemFormGroup.controls.name.errors.required">Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="number" class="form-control" formControlName="price" id="price" min="0"
+                     [ngClass]="{'is-invalid':submitted && itemFormGroup.controls.price.errors}">
+              <div *ngIf="submitted && itemFormGroup.controls.price.errors" class="invalid-feedback">
+                <div *ngIf="itemFormGroup.controls.price.errors.required">Price is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" class="form-control" formControlName="quantity" id="quantity" min="0"
+                     [ngClass]="{'is-invalid':submitted && itemFormGroup.controls.quantity.errors}">
+              <div *ngIf="submitted && itemFormGroup.controls.quantity.errors" class="invalid-feedback">
+                <div *ngIf="itemFormGroup.controls.quantity.errors.required">Quantity is required</div>
+              </div>
+            </div>
+            <button class="btn btn-success">Save</button>
+          </form>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

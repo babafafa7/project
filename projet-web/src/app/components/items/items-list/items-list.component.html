@@ -1,0 +1,6 @@
+<table class="table container" *ngIf="state">
+  <tr>
+    <th>ID</th><th>Name</th><th>price</th><th>quantity</th>
+  </tr>
+  <app-item-item *ngFor="let item of state.items" [item]="item" style="display: contents"></app-item-item>
+</table>

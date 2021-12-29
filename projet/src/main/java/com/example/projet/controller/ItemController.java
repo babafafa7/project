@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
 @RequestMapping(path="/item")
+@CrossOrigin(origins = "http://localhost")
 public class ItemController {
     private final ItemService itemService;
 
@@ -42,8 +44,13 @@ public class ItemController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<String> deleteItem(@PathVariable("id") Long id){
+    public ResponseEntity<List<Item>> deleteItem(@PathVariable("id") Long id){
         return new ResponseEntity<>(itemService.deleteItem(id), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<List<Item>> getItemsBySearch(@PathParam("search") String search){
+        return new ResponseEntity<>(itemService.getItemsBySearch(search),HttpStatus.OK);
     }
 
 }

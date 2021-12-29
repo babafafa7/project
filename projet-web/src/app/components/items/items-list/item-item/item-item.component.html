@@ -1,0 +1,16 @@
+<tr *ngIf="item">
+  <td>{{ item.id }}</td>
+  <td>{{ item.name }}</td>
+  <td>{{ item.price }}</td>
+  <td>{{ item.quantity }}</td>
+  <td>
+    <button (click)="onDelete(item)" class="btn btn-sm btn-danger">
+      <span class="fa fa-trash-o"></span>
+    </button>
+  </td>
+  <td>
+    <button (click)="onEdit(item)" class="btn btn-sm btn-info">
+      <span class="fa fa-edit"></span>
+    </button>
+  </td>
+</tr>
