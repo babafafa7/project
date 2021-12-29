@@ -3,7 +3,6 @@ package com.example.projet.services;
 import com.example.projet.dao.ItemRepository;
 import com.example.projet.dto.ItemDTO;
 import com.example.projet.entities.Item;
-import com.example.projet.entities.User;
 import com.example.projet.exceptions.ItemNotFoundException;
 import com.example.projet.exceptions.ItemQuantityException;
 import org.springframework.stereotype.Service;

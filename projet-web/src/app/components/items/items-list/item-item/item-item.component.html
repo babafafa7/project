@@ -13,4 +13,9 @@
       <span class="fa fa-edit"></span>
     </button>
   </td>
+  <td *ngIf="shopping">
+    <button (click)="onShopping(item)" class="btn btn-sm btn-info">
+      <span class="fa fa-shopping-cart"></span>
+    </button>
+  </td>
 </tr>

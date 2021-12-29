@@ -1,10 +1,6 @@
 package com.example.projet.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,8 +14,4 @@ public class Item {
     private double price;
 
     private int quantity = 0;
-
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Cart> carts;
 }
