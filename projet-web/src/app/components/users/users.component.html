@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <ul class="navbar navbar-nav">
     <li>
-      <button (click)="onGetAllItems()" class="btn btn-sm btn-outline-info ml-2">All</button>
+      <button (click)="onGetAllUsers()" class="btn btn-sm btn-outline-info ml-2">All</button>
     </li>
-    <li *ngIf="!shopping">
-      <button (click)="onNewItem()"    class="btn btn-sm btn-outline-info ml-2">New</button>
+    <li>
+      <button (click)="onNewUser()"    class="btn btn-sm btn-outline-info ml-2">New</button>
     </li>
   </ul>
   <ul class="navbar navbar-nav ml-auto">
@@ -19,7 +19,7 @@
   </ul>
 </nav>
 <div class="container">
-  <ng-container *ngIf="(items$ | async) as result" [ngSwitch]="result.dataState" >
+  <ng-container *ngIf="(users$ | async) as result" [ngSwitch]="result.dataState" >
     <ng-container *ngSwitchCase="DataStateEnum.LOADING">
       Loading .....
     </ng-container>
@@ -31,26 +31,31 @@
     <ng-container *ngSwitchCase="DataStateEnum.LOADED">
       <table class="table">
         <tr>
-          <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+          <th>ID</th><th>Forename</th><th>Surname</th><th>Mail</th>
         </tr>
         <tr *ngFor="let p of result.data">
           <td>{{p.id}}</td>
-          <td>{{p.name}}</td>
-          <td>{{p.price}}</td>
-          <td>{{p.quantity}}</td>
-          <td *ngIf="!shopping">
+          <td>{{p.forename}}</td>
+          <td>{{p.surname}}</td>
+          <td>{{p.mail}}</td>
+          <td>
             <button class="btn btn-danger" (click)="onDelete(p)">
               <span class="fa fa-trash-o"></span>
             </button>
           </td>
-          <td *ngIf="!shopping">
+          <td>
             <button class="btn btn-info" (click)="onEdit(p)">
               <span class="fa fa-edit"></span>
             </button>
           </td>
-          <td *ngIf="shopping">
-            <button class="btn btn-info" (click)="onAddToCart(p)">
+          <td>
+            <button class="btn btn-info" (click)="onCart(p)">
               <span class="fa fa-shopping-cart"></span>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="onShopping(p)">
+              <span class="fa fa-buysellads"></span>
             </button>
           </td>
         </tr>

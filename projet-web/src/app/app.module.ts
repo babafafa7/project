@@ -4,42 +4,38 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {StoreModule} from "@ngrx/store";
-import {EffectsModule} from "@ngrx/effects";
-
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { UsersComponent } from './components/users/users.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import { UserAddComponent } from './components/user-add/user-add.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { ItemsComponent } from './components/items/items.component';
-import { ItemsNavBarComponent } from './components/items/items-nav-bar/items-nav-bar.component';
-import { ItemsListComponent } from './components/items/items-list/items-list.component';
-import { ItemEditComponent } from './components/items/item-edit/item-edit.component';
-import { ItemAddComponent } from './components/items/item-add/item-add.component';
-import { ItemItemComponent } from './components/items/items-list/item-item/item-item.component';
-import {itemReducer} from "./ngrx/item/item.reducer";
-import {ItemEffects} from "./ngrx/item/item.effects";
-
+import { ItemAddComponent } from './components/item-add/item-add.component';
+import { ItemEditComponent } from './components/item-edit/item-edit.component';
+import { CartComponent } from './components/cart/cart.component';
+import { ShoppingComponent } from './components/shopping/shopping.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
+    UsersComponent,
+    UserAddComponent,
+    UserEditComponent,
     ItemsComponent,
-    ItemsNavBarComponent,
-    ItemsListComponent,
-    ItemEditComponent,
     ItemAddComponent,
-    ItemItemComponent,
+    ItemEditComponent,
+    CartComponent,
+    ShoppingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot({catalogState2:itemReducer}),
-    EffectsModule.forRoot([ItemEffects]),
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

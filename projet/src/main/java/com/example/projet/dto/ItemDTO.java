@@ -14,7 +14,7 @@ public class ItemDTO {
     private String name;
 
     @NotNull(message = "price must not be empty.")
-    private double price;
+    private int price;
 
     @NotNull(message = "quantity must not be empty.")
     private int quantity;

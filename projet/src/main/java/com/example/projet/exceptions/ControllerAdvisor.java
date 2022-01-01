@@ -20,6 +20,28 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(UserExistingException.class)
+    public ResponseEntity<Object> handleUserExistingException(
+            UserExistingException ex) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleNodataFoundException(
+            UserNotFoundException ex) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<Object> handleItemNotFoundException(
             ItemNotFoundException ex) {

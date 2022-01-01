@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {ItemsState,ItemsStateEnum} from "../../ngrx/item/item.reducer";
-import {map} from "rxjs/operators";
-import {Store} from "@ngrx/store";
+import {Observable, of} from "rxjs";
+import {AppDataState, DataStateEnum} from "../../states/data.state";
+import {Router} from "@angular/router";
+import {catchError, map, startWith} from "rxjs/operators";
+import {ItemModel} from "../../models/item.model";
+import {ItemService} from "../../services/item.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-items',
@@ -11,15 +14,64 @@ import {Store} from "@ngrx/store";
 })
 export class ItemsComponent implements OnInit {
 
-  itemsState$?:Observable<ItemsState>;
-  readonly ItemsStateEnum=ItemsStateEnum;
+  items$:Observable<AppDataState<ItemModel[]>> |null=null;
+  readonly DataStateEnum=DataStateEnum;
+  user!:number;
+  shopping = false;
 
-  constructor(private store:Store<any>) { }
+  constructor(private itemService:ItemService,
+              private cartService:CartService,
+              private router:Router) { }
 
   ngOnInit(): void {
-    this.itemsState$=this.store.pipe(
-      map((state)=> state.catalogState2)
-    )
+    if(this.router.url.startsWith("/shopping")) {
+      this.shopping = true;
+      this.user = parseInt(this.router.url.split("/")[3]);
+    }
+    this.onGetAllItems();
+  }
+
+  onGetAllItems() {
+    this.items$= this.itemService.getAllItems().pipe(
+      map(data=>{
+        return ({dataState:DataStateEnum.LOADED,data:data})
+      }),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
+    );
+  }
+
+  onSearch(dataForm: any) {
+    this.items$= this.itemService.searchItems(dataForm.keyword).pipe(
+      map(data=>{
+        console.log(data);
+        return ({dataState:DataStateEnum.LOADED,data:data})
+      }),
+      startWith({dataState:DataStateEnum.LOADING}),
+      catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
+    );
+  }
+
+  onDelete(i: ItemModel) {
+    this.itemService.deleteItem(i)
+      .subscribe(() =>
+        this.onGetAllItems()
+      );
+  }
+
+  onNewItem() {
+    this.router.navigateByUrl("/newItem").then();
+  }
+
+  onEdit(i: ItemModel) {
+    this.router.navigateByUrl("/editItem/"+i.id).then();
+  }
+
+  onAddToCart(i:ItemModel) {
+    this.cartService.addItem(this.user,i)
+      .subscribe(()=>
+        this.onGetAllItems()
+        );
   }
 
 }

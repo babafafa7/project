@@ -1,0 +1,31 @@
+<div class="container" *ngIf="userFormGroup">
+  <form [formGroup]="userFormGroup">
+    <div class="form-group">
+      <label>ID : </label>
+      <label class="ml-1">{{userFormGroup.controls.id.value}}</label>
+      <input type="hidden" class="form-control" formControlName="id"/>
+    </div>
+    <div class="form-group">
+      <label>Forename</label>
+      <input type="text" class="form-control" formControlName="forename"
+             [ngClass]="{'is-invalid':submitted && userFormGroup.controls.forename.errors}">
+      <div *ngIf="submitted && userFormGroup.controls.forename.errors" class="invalid-feedback">
+        <div *ngIf="userFormGroup.controls.forename.errors.required">Forename is Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Surname</label>
+      <input type="text" class="form-control" formControlName="surname"
+             [ngClass]="{'is-invalid':submitted && userFormGroup.controls.surname.errors}">
+      <div *ngIf="submitted && userFormGroup.controls.surname.errors" class="invalid-feedback">
+        <div *ngIf="userFormGroup.controls.surname.errors.required">Surname is Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Mail : </label>
+      <label class="ml-1">{{userFormGroup.controls.mail.value}}</label>
+      <input type="hidden" class="form-control" formControlName="Mail">
+    </div>
+    <button class="btn btn-success" (click)="onUpdateUser()">Save</button>
+  </form>
+</div>

@@ -42,10 +42,10 @@ public class ItemService {
         return itemRepository.save(updateItem);
     }
 
-    public List<Item> deleteItem(Long id) {
+    public Item deleteItem(Long id) {
         Item deleteItem = getItemById(id);
         itemRepository.delete(deleteItem);
-        return getAllItems();
+        return deleteItem;
     }
 
     public boolean itemAvailable(Item item){

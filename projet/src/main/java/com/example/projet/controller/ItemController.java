@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/item")
-@CrossOrigin(origins = "http://localhost")
+@CrossOrigin("*")
 public class ItemController {
     private final ItemService itemService;
 
@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<List<Item>> deleteItem(@PathVariable("id") Long id){
+    public ResponseEntity<Item> deleteItem(@PathVariable("id") Long id){
         return new ResponseEntity<>(itemService.deleteItem(id), HttpStatus.OK);
     }
 
