@@ -45,16 +45,15 @@ export class CartComponent implements OnInit {
   onPurchase() {
      this.cartService.getPrice(this.user)
        .subscribe(data => {
-         if(data == 0 ){
-           return;
-         }
-         let text = "You will purchase for " + data + "$";
-         if(confirm(text)) {
-           this.cartService.purchaseCart(this.user)
-             .subscribe(() => {
-               alert("Purchase ok");
-               this.onGetAllItems();
-             });
+         if(data != 0){
+           let text = "You will purchase for " + data + "$";
+           if(confirm(text)) {
+             this.cartService.purchaseCart(this.user)
+               .subscribe(() => {
+                 alert("Purchase ok");
+                 this.onGetAllItems();
+               });
+           }
          }
        });
   }
