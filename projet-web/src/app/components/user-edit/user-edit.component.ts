@@ -27,12 +27,14 @@ export class UserEditComponent implements OnInit {
           id:[user.id,Validators.required],
           forename:[user.forename,Validators.required],
           surname:[user.surname,Validators.required],
-          mail:[user.mail,Validators.email],
+          mail:[user.mail,[Validators.email,Validators.required]],
         })
       });
   }
 
   onUpdateUser() {
+    this.submitted=true;
+    if(this.userFormGroup?.invalid) return;
     this.userService.putUser(this.userFormGroup?.value)
       .subscribe(data=>{
         this.router.navigateByUrl("/users").then();

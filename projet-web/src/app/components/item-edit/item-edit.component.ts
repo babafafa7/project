@@ -34,6 +34,8 @@ export class ItemEditComponent implements OnInit {
   }
 
   onUpdateItem() {
+    this.submitted=true;
+    if(this.itemFormGroup?.invalid) return;
     this.itemService.putItem(this.itemFormGroup?.value)
       .subscribe(data=>{
         this.router.navigateByUrl("/items").then();

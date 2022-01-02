@@ -23,6 +23,9 @@
       <div *ngIf="submitted && userFormGroup.controls.mail.errors" class="invalid-feedback">
         <div *ngIf="userFormGroup.controls.mail.errors.required">Mail is Required</div>
       </div>
+      <div *ngIf="submitted && userFormGroup.controls.mail.errors" class="invalid-feedback">
+        <div *ngIf="userFormGroup.controls.mail.errors.email">Mail must be like : forename.surname@mail.com</div>
+      </div>
     </div>
     <button class="btn btn-success" (click)="onSaveUser()">Save</button>
   </form>

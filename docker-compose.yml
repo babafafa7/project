@@ -1,39 +1,30 @@
-version: "3.8"
+version: "3"
 
 services:
-  db:
+  db-mysql:
     image: mysql:latest
-    container_name: mysql-db
+    container_name: db-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password123
       - MYSQL_DATABASE=dbproject
     ports:
       - "3306:3306"
-    restart: on-failure
-    networks:
-      - network
-  api:
-    image: projet-api
-    container_name: api
+  ecommerce-api:
+    container_name: ecommerce-api
     build:
       context: projet
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    depends_on:
-      - db
+    links:
+      - db-mysql
     restart: on-failure
-    networks:
-      - network
-  web:
-    image: web-api
-    container_name: web-api
+  angular-ui:
+    container_name: angular-ui
     build:
       context: projet-web
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    networks:
-      - network
-networks:
-  network:
+    links:
+      - ecommerce-api

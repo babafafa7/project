@@ -44,7 +44,6 @@ export class ItemsComponent implements OnInit {
   onSearch(dataForm: any) {
     this.items$= this.itemService.searchItems(dataForm.keyword).pipe(
       map(data=>{
-        console.log(data);
         return ({dataState:DataStateEnum.LOADED,data:data})
       }),
       startWith({dataState:DataStateEnum.LOADING}),

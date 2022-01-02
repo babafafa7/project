@@ -21,7 +21,7 @@ export class UserAddComponent implements OnInit {
     this.userFormGroup=this.fb.group({
       forename:["",Validators.required],
       surname:["",Validators.required],
-      mail:["",Validators.email],
+      mail:["",[Validators.email,Validators.required]],
     });
   }
 
