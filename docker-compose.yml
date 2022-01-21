@@ -16,8 +16,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    links:
-      - db-mysql
     restart: on-failure
   angular-ui:
     container_name: angular-ui
@@ -26,5 +24,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    links:
-      - ecommerce-api

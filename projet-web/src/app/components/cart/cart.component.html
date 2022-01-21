@@ -21,7 +21,7 @@
     <ng-container *ngSwitchCase="DataStateEnum.LOADED">
       <table class="table">
         <tr>
-          <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+          <th>ID</th><th>Name</th><th>Price</th>
         </tr>
         <tr *ngFor="let p of result.data">
           <td>{{p.id}}</td>

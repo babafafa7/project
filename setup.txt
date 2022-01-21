@@ -34,4 +34,4 @@ $ select * from user;
 
 
 > Docker startup problem
-$ bcdedit /set hypervisorlaunchtype off 
+$ bcdedit /set hypervisorlaunchtype auto 
