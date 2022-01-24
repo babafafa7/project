@@ -31,7 +31,6 @@ public class CartService {
         List<Item> items = cart.getItems();
         items.add(item);
         cart.setItems(items);
-        cart.setSomme(cart.getSomme() + item.getPrice());
         cartRepository.save(cart);
         return item;
     }
@@ -42,7 +41,6 @@ public class CartService {
         items.remove(item);
         itemService.incrementItemQuantity(item);
         cart.setItems(items);
-        cart.setSomme(cart.getSomme() - item.getPrice());
         return cartRepository.save(cart);
 
     }
@@ -50,7 +48,6 @@ public class CartService {
     public Cart purchaseCart(User user) {
         Cart cart = user.getCart();
         cart.setItems(new ArrayList<>());
-        cart.setSomme(0);
         return cartRepository.save(cart);
 
     }
@@ -61,6 +58,9 @@ public class CartService {
     }
 
     public Integer getPriceCart(User user) {
-        return getCartByUser(user).getSomme();
+        return getCartByUser(user).getItems()
+                .stream()
+                .mapToInt(Item::getPrice)
+                .sum();
     }
 }

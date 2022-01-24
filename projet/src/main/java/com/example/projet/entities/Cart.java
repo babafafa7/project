@@ -22,8 +22,6 @@ public class Cart {
             CascadeType.REFRESH})
     private List<Item> items;
 
-    private int somme;
-
     @JsonIgnoreProperties("cart")
     @OneToOne(mappedBy = "cart")
     private User user;
